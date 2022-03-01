@@ -1,0 +1,9 @@
+Generic Packages for Go
+===
+
+Author: Laurens Hellemons <lhellemons@gmail.com>
+
+This project is a Go module that offers type-agnostic, generic functionality in a type-safe way, using Generics.
+Generics will be available in Go starting from version 1.18.
+
+NOTE: The project has just started development; check back frequently!
