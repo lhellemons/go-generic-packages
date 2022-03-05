@@ -3,7 +3,7 @@ package function_test
 import (
 	"testing"
 
-	"generic-utils/pkg/function"
+	"generic-packages/pkg/function"
 
 	"github.com/stretchr/testify/assert"
 )

@@ -5,7 +5,7 @@ import (
 	"errors"
 	"sync"
 
-	"generic-utils/pkg/result"
+	"generic-packages/pkg/result"
 )
 
 var CancelledErr = errors.New("promise cancelled")
@@ -89,12 +89,14 @@ func Map[T, U any](f func(T) U, p Promise[T]) Promise[U] {
 // Flatmap
 
 func Flatmap[T, U any](f func(T) Promise[U], p Promise[T]) Promise[U] {
-	return Lazy(func() result.Result[U] {
-		r := p.Await()
-		t, err := r.Result()
-		if err != nil {
-			return result.Error[U](err)
-		}
-		return f(t).Await()
-	})
+	return Flatten(Map(f, p))
+}
+
+func Flatten[T any](p Promise[Promise[T]]) Promise[T] {
+	r := p.Await()
+	t, err := r.Result()
+	if err != nil {
+		return Resolved(result.Error[T](err))
+	}
+	return t
 }

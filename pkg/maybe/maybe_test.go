@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"testing"
 
-	"generic-utils/pkg/maybe"
+	"generic-packages/pkg/maybe"
 
 	"github.com/stretchr/testify/assert"
 )

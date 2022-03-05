@@ -19,11 +19,11 @@ func Empty[T any]() List[T] {
 	return list[T]{}
 }
 
-func New[T any](ts ...T) List[T] {
-	return FromSlice(ts)
+func Static[T any](ts ...T) List[T] {
+	return Slice(ts)
 }
 
-func FromSlice[T any](ts []T) List[T] {
+func Slice[T any](ts []T) List[T] {
 	l := make(list[T], len(ts))
 	copy(l, ts)
 	return l
@@ -48,4 +48,16 @@ func Map[T, U any](f func(T) U, ts List[T]) List[U] {
 		us[i] = f(t)
 	}
 	return us
+}
+
+func Flatten[T any](tts List[List[T]]) List[T] {
+	var ts []T
+	for _, t := range tts.Items() {
+		ts = append(ts, t.Items()...)
+	}
+	return Slice(ts)
+}
+
+func FlatMap[T, U any](f func(T) List[U], ts List[T]) List[U] {
+	return Flatten(Map(f, ts))
 }

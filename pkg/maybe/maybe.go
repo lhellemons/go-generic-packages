@@ -38,8 +38,12 @@ func Map[T, U any](f func(T) U, m Maybe[T]) Maybe[U] {
 // === FlatMap
 
 func FlatMap[T, U any](f func(T) Maybe[U], m Maybe[T]) Maybe[U] {
+	return Flatten(Map(f, m))
+}
+
+func Flatten[T any](m Maybe[Maybe[T]]) Maybe[T] {
 	if v, ok := m.Val(); ok {
-		return f(v)
+		return v
 	}
-	return Nothing[U]()
+	return Nothing[T]()
 }

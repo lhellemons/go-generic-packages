@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"generic-utils/pkg/result"
+	"generic-packages/pkg/result"
 
 	"github.com/stretchr/testify/assert"
 )
